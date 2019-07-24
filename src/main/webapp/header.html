@@ -1,0 +1,95 @@
+<!-- 头部 start -->
+    <header id="header">
+        <div class="top_banner">
+            <img src="images/top_banner.jpg" alt="">
+        </div>
+        <div class="shortcut">
+            <!-- 未登录状态  -->
+            <div class="login_out">
+                <a href="login.html">登录</a>
+                <a href="register.html">注册</a>
+            </div>
+            <!-- 登录状态  -->
+            <div class="login">
+            	
+                <span>欢迎回来，admin</span>
+                <a href="myfavorite.html" class="collection">我的收藏</a>
+                <a href="javascript:loginout();">退出</a>
+            </div>
+        </div>
+        <div class="header_wrap">
+            <div class="topbar">
+                <div class="logo">
+                    <a href="/"><img src="images/logo.jpg" alt=""></a>
+                </div>
+                <div class="search">
+                    <input name="" type="text" placeholder="请输入路线名称" class="search_input" autocomplete="off">
+                    <a href="javascript:;" class="search-button">搜索</a>
+                </div>
+                <div class="hottel">
+                    <div class="hot_pic">
+                        <img src="images/hot_tel.jpg" alt="">
+                    </div>
+                    <div class="hot_tel">
+                        <p class="hot_time">客服热线(9:00-6:00)</p>
+                        <p class="hot_num">400-618-9090</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- 头部 end -->
+     <!-- 首页导航 -->
+    <div class="navitem">
+        <ul class="nav">
+            <li class="nav-active"><a href="index.html">首页</a></li>
+
+
+        </ul>
+    </div>
+
+
+<script type="text/javascript">
+
+  $(function () {
+      //  页面加载完成 立刻发送ajax  加载  category表示数据  更新<ul class="nav">
+
+      $.get("categoryServlet?method=findAll",function (data) {
+          //  data  List<Category>   json [{},{},{}]
+          $(data).each(function () {
+              $(".nav").append(" <li><a href=\"route_list.html?cid="+this.cid+"\">"+this.cname+"</a></li>");
+          })
+
+      });
+
+
+
+        //  页面加载完成  判断后台session有无用户数据 更新header.html  div
+      $.get("UserServlet?method=isnotlogin",function (data) {
+          //  session有用户信息 显示新  {id:xxx,username:xxx}
+          if(data!="0"){
+             //  用户登录  隐藏div class="login_out"
+              $(".login_out").hide();
+              $(".login").show();
+              $(".login span").html("欢迎回来，"+data.username);
+
+          }else if(data=="0"){
+              //  用户登录  隐藏div class="login_out"
+              $(".login_out").show();
+              $(".login").hide();
+          }
+      })
+  })
+
+
+    //  声明式函数  退出
+    function loginout() {
+       $.get("UserServlet?method=loginout",function (data) {
+           //  data  0  退出成功   1  退出失败
+           if(data=="0"){
+               location.href="index.html"
+           }
+       });
+    }
+
+</script>

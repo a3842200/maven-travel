@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+        <bean id="FavoriteDao" class="cn.itcast.travel.dao.favorite.FavoriteDaoImpl"></bean>
+        <bean id="RouteDao" class="cn.itcast.travel.dao.route.RouteDaoImpl"></bean>
+        <bean id="RouteImgDao" class="cn.itcast.travel.dao.routeimg.RouteImgDaoImpl"></bean>
+        <bean id="FavoriteService" class="cn.itcast.travel.service.favorite.FavoriteServiceImpl"></bean>
+        <bean id="UserDao" class="cn.itcast.travel.dao.user.UserDaoImpl"></bean>
+        <bean id="UserService" class="cn.itcast.travel.service.user.UserServiceImpl"></bean>
+</beans>
